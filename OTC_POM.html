@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSCE Marking Rubric — Primary Healthcare (OTC/POM)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;color:#000;}
+.toolbar{background:#fff;padding:8px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ccc;position:sticky;top:0;z-index:100;}
+.toolbar-title{font-weight:bold;color:#003B6E;font-size:11pt;flex:1;}
+.tbtn{padding:6px 14px;font-family:Arial,sans-serif;font-size:9.5pt;border:1px solid #888;background:#fff;cursor:pointer;border-radius:3px;}
+.tbtn:hover{background:#efefef;}
+.tbtn.primary{background:#003B6E;color:white;border-color:#003B6E;}
+.tbtn.primary:hover{background:#002b52;}
+.page{max-width:780px;background:#fff;margin:16px auto;padding:20px;box-shadow:0 2px 14px rgba(0,0,0,0.22);}
+.header-row{display:flex;border:1.5px solid #000;border-bottom:none;}
+.header-cell{flex:1;padding:4px 7px;font-size:9pt;border-right:1px solid #000;display:flex;align-items:center;gap:3px;white-space:nowrap;}
+.header-cell:last-child{border-right:none;}
+.header-cell input{flex:1;border:none;border-bottom:1px solid #555;font-family:Arial,sans-serif;font-size:9pt;padding:1px 2px;background:transparent;outline:none;min-width:0;}
+.header-cell input:focus{border-bottom-color:#000;background:#fffde7;}
+.rubric-title{border:1.5px solid #000;border-bottom:none;padding:5px 7px;font-size:11pt;font-weight:bold;background:#bfbfbf;text-align:center;}
+.intro-line{border:1.5px solid #000;border-bottom:none;padding:4px 7px;font-size:8.5pt;font-style:italic;background:#f2f2f2;}
+.rubric-table{width:100%;border-collapse:collapse;border:1.5px solid #000;}
+.rubric-table td{border:1px solid #000;vertical-align:top;padding:0;}
+.crit-cell{width:80%;padding:0;vertical-align:top;}
+.crit-text{padding:4px 6px 2px 6px;font-size:8.5pt;line-height:1.35;}
+.crit-comment{width:100%;border:none;border-top:1px dashed #bbb;font-family:Arial,sans-serif;font-size:8.5pt;padding:3px 7px;resize:none;background:inherit;outline:none;color:#222;min-height:22px;line-height:1.3;display:block;overflow:hidden;}
+.crit-comment:focus{background:#fffde7;}
+.crit-comment::placeholder{color:#bbb;font-style:italic;}
+.mark-cell{width:20%;background:#e8e8e8;padding:4px 3px;vertical-align:middle;text-align:center;}
+.mark-btns{display:flex;gap:2px;justify-content:center;flex-wrap:nowrap;align-items:center;}
+.mbtn{height:24px;width:24px;border:1.5px solid transparent;background:#fff;font-size:13px;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:0;font-family:Arial,sans-serif;flex-shrink:0;transition:all 0.12s;}
+.mbtn:hover{filter:brightness(0.9);transform:scale(1.05);}
+/* Traffic light buttons */
+.mbtn.red{background:#f5c0c0;border-color:#c0392b;color:#7a1515;}
+.mbtn.red.active{background:#e74c3c;border-color:#c0392b;color:#fff;box-shadow:0 1px 4px rgba(192,57,43,0.4);}
+.mbtn.amber{background:#fef9c3;border-color:#d4ac0d;color:#7a6200;}
+.mbtn.amber.active{background:#f1c40f;border-color:#d4ac0d;color:#5a4700;box-shadow:0 1px 4px rgba(241,196,15,0.4);}
+.mbtn.green{background:#c8f0d0;border-color:#1e8449;color:#1a5c2a;}
+.mbtn.green.active{background:#27ae60;border-color:#1e8449;color:#fff;box-shadow:0 1px 4px rgba(30,132,73,0.4);}
+.mbtn.na{background:#f0f0f0;border-color:#aaa;color:#555;font-size:7px;letter-spacing:-0.3px;width:26px;}
+.mbtn.na.active{background:#d0d0d0;border-color:#666;color:#222;}
+/* Row highlights */
+.row-red td.crit-cell{background:#fff0f0!important;}
+.row-red .mark-cell{background:#fad7d7!important;}
+.row-red td.crit-cell .crit-text{background:#fff0f0!important;}
+.row-red td.crit-cell .crit-comment{background:#fff0f0!important;}
+.row-red td.crit-cell div{background:#fff0f0!important;}
+.row-amber td.crit-cell{background:#fefce8!important;}
+.row-amber .mark-cell{background:#fef9c3!important;}
+.row-amber td.crit-cell .crit-text{background:#fefce8!important;}
+.row-amber td.crit-cell .crit-comment{background:#fefce8!important;}
+.row-amber td.crit-cell div{background:#fefce8!important;}
+.row-green td.crit-cell{background:#f0fbf4!important;}
+.row-green .mark-cell{background:#d4f5df!important;}
+.row-green td.crit-cell .crit-text{background:#f0fbf4!important;}
+.row-green td.crit-cell .crit-comment{background:#f0fbf4!important;}
+.row-green td.crit-cell div{background:#f0fbf4!important;}
+.row-na td.crit-cell{background:#f5f5f5!important;}
+.row-na .mark-cell{background:#e8e8e8!important;}
+.row-na td.crit-cell .crit-text{background:#f5f5f5!important;}
+.row-na td.crit-cell .crit-comment{background:#f5f5f5!important;}
+.row-na td.crit-cell div{background:#f5f5f5!important;}
+/* Standards table row highlights */
+.row-red .std-label-cell, .row-red .std-label-cell *{background:#fff0f0!important;} .row-red .std-mark-cell{background:#fad7d7!important;}
+.row-amber .std-label-cell, .row-amber .std-label-cell *{background:#fefce8!important;} .row-amber .std-mark-cell{background:#fef9c3!important;}
+.row-green .std-label-cell, .row-green .std-label-cell *{background:#f0fbf4!important;} .row-green .std-mark-cell{background:#d4f5df!important;}
+.row-na .std-label-cell, .row-na .std-label-cell *{background:#f5f5f5!important;} .row-na .std-mark-cell{background:#e8e8e8!important;}
+/* Traffic light legend */
+.tl-legend{display:flex;gap:10px;justify-content:center;font-size:7pt;margin-top:4px;flex-wrap:wrap;}
+.tl-legend span{display:flex;align-items:center;gap:3px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+/* Timer blink animations */
+@keyframes blink-amber{0%,100%{background:transparent;}50%{background:#f39c12;}}
+@keyframes blink-red{0%,100%{background:transparent;}50%{background:#e74c3c;}}
+.timer-blink-amber{animation:blink-amber 0.6s ease-in-out infinite;}
+.timer-blink-red{animation:blink-red 0.4s ease-in-out infinite;}
+.section-divider td{background:#d0d0d0;font-size:9pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.8px;padding:4px 7px;border-top:2px solid #000;border-bottom:1px solid #000;color:#000;text-align:center;}
+/* Section comment toggle */
+.section-comment-row td{border:1px solid #000;border-top:none;padding:0;background:#f9f9f9;}
+.section-comment-area{width:100%;border:none;font-family:Arial,sans-serif;font-size:9pt;padding:5px 8px;resize:none;background:#f9f9f9;outline:none;color:#222;line-height:1.4;display:block;overflow:hidden;min-height:32px;}
+.section-comment-area:focus{background:#fffde7;}
+.section-comment-area::placeholder{color:#bbb;font-style:italic;}
+.comment-toggle-btn{
+  background:none;border:1px solid #999;border-radius:3px;
+  font-size:7pt;padding:1px 4px;cursor:pointer;
+  color:#555;margin-left:8px;vertical-align:middle;
+  font-family:Arial,sans-serif;line-height:1.2;
+}
+.comment-toggle-btn:hover{background:#e8e8e8;border-color:#555;}
+.rubric-title-wrap{border:1.5px solid #000;border-bottom:none;padding:5px 7px;font-size:11pt;font-weight:bold;background:#bfbfbf;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;}
+.standards-header{border:1.5px solid #000;border-top:none;padding:4px 7px;font-size:9pt;font-weight:bold;background:#d9d9d9;text-align:center;text-transform:uppercase;letter-spacing:0.8px;}
+.standards-table{width:100%;border-collapse:collapse;border:1.5px solid #000;border-top:none;}
+.standards-table td{border:1px solid #000;padding:2px 4px;font-size:8.5pt;vertical-align:middle;}
+.std-label-cell{width:80%;background:#fff;padding:2px 6px;font-size:8.5pt;line-height:1.25;}
+.std-mark-cell{width:20%;background:#e8e8e8;text-align:center;vertical-align:middle;padding:2px 3px;}
+.rating-footer{display:flex;border:1.5px solid #000;border-top:none;}
+.rating-col{flex:1;border-right:1px solid #000;text-align:center;cursor:pointer;background:#e8e8e8;padding:5px 4px;font-size:8pt;line-height:1.3;user-select:none;}
+.rating-col:last-child{border-right:none;}
+.rating-col:hover{filter:brightness(0.94);}
+.rating-col.sel-1{background:#e74c3c;color:#fff;font-weight:700;} 
+.rating-col.sel-2{background:#e74c3c;color:#fff;font-weight:700;} 
+.rating-col.sel-3{background:#27ae60;color:#fff;font-weight:700;} 
+.rating-col.sel-4{background:#27ae60;color:#fff;font-weight:700;} 
+.rating-col.sel-5{background:#27ae60;color:#fff;font-weight:700;}
+.time-comments-row{display:flex;border:1.5px solid #000;border-top:none;min-height:0;}
+.time-cell{width:18%;border-right:1px solid #000;padding:4px 5px;background:#f7f7f7;display:flex;flex-direction:column;gap:2px;}
+.comments-cell{flex:1;padding:4px 6px;background:#f7f7f7;display:flex;flex-direction:column;}
+.tc-label{font-size:8pt;font-weight:bold;margin-bottom:1px;}
+.tc-textarea{flex:1;border:none;border-top:1px dashed #ccc;font-family:Arial,sans-serif;font-size:10pt;resize:none;background:transparent;outline:none;color:#222;min-height:30px;padding:3px 2px;margin-top:3px;overflow:hidden;}
+.tc-textarea:focus{background:#fffde7;}
+.tc-textarea::placeholder{color:#bbb;font-style:italic;}
+@media print{
+  .toolbar{display:none!important;}
+  body{background:white;}
+  .page{margin:0;box-shadow:none;padding:10mm;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  .rubric-table tr,.standards-table tr{page-break-inside:avoid;break-inside:avoid;}
+
+  /* Hide interactive elements */
+  .comment-toggle-btn{display:none!important;}
+  #timer-start,#timer-pause,#timer-reset{display:none!important;}
+  textarea.hidden-for-print{display:none!important;}
+  /* Hide collapsed comment containers */
+  [id^="cc-"],[id^="sc-"]{display:none!important;}
+  [id^="cc-"].print-visible,[id^="sc-"].print-visible{display:block!important;}
+
+  /* Hide empty comment boxes */
+  .print-expanded:empty{display:none!important;}
+
+  /* Traffic lights — replace emoji with CSS circles */
+  .mbtn{display:none!important;}
+  .mark-cell::after{content:'';display:block;}
+  .row-red .mark-cell{background:#e74c3c!important;}
+  .row-amber .mark-cell{background:#f1c40f!important;}
+  .row-green .mark-cell{background:#27ae60!important;}
+  .row-na .mark-cell{background:#e8e8e8!important;}
+  .row-red .std-mark-cell{background:#e74c3c!important;}
+  .row-amber .std-mark-cell{background:#f1c40f!important;}
+  .row-green .std-mark-cell{background:#27ae60!important;}
+
+  /* Show which TM traffic light was selected */
+  #tm-red.active,#tm-amber.active,#tm-green.active{
+    display:inline-block!important;font-size:10px!important;
+    width:16px!important;height:16px!important;
+  }
+
+  /* Row colours */
+  .row-red td.crit-cell,.row-red td.crit-cell *{background:#fff0f0!important;}
+  .row-amber td.crit-cell,.row-amber td.crit-cell *{background:#fefce8!important;}
+  .row-green td.crit-cell,.row-green td.crit-cell *{background:#f0fbf4!important;}
+  .row-na td.crit-cell,.row-na td.crit-cell *{background:#f5f5f5!important;}
+  .row-red .std-label-cell,.row-red .std-label-cell *{background:#fff0f0!important;}
+  .row-amber .std-label-cell,.row-amber .std-label-cell *{background:#fefce8!important;}
+  .row-green .std-label-cell,.row-green .std-label-cell *{background:#f0fbf4!important;}
+  .row-na .std-label-cell,.row-na .std-label-cell *{background:#f5f5f5!important;}
+
+  /* Rating footer */
+  .rating-col.sel-1{background:#e74c3c!important;color:#fff!important;font-weight:700!important;}
+  .rating-col.sel-2{background:#e74c3c!important;color:#fff!important;font-weight:700!important;}
+  .rating-col.sel-3{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
+  .rating-col.sel-4{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
+  .rating-col.sel-5{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
+  .tl-legend{display:none!important;}
+
+  /* Expanded content divs */
+  .print-expanded{
+    display:block!important;height:auto!important;overflow:visible!important;
+    white-space:pre-wrap!important;word-break:break-word!important;
+    page-break-inside:avoid;font-size:8.5pt;
+    border-top:1px dashed #bbb;padding:2px 6px;
+  }
+  .time-comments-row{min-height:0;overflow:visible!important;}
+  .time-cell,.comments-cell{overflow:visible!important;}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <span class="toolbar-title">CWH NZ — Primary Healthcare (OTC/POM)</span>
+  <button class="tbtn" id="resetBtn">↺ Reset Form</button>
+  <button class="tbtn primary" id="printBtn">⎙ Print / Save PDF</button>
+</div>
+<div class="page">
+  <div style="display:flex;border:1.5px solid #000;border-bottom:none;">
+    <div style="flex:2;padding:5px 7px;border-right:1px solid #000;display:flex;flex-direction:column;gap:2px;">
+      <span style="font-size:9pt;font-weight:bold;">Candidate name:</span>
+      <input type="text" id="h-name" style="font-size:10pt;border:none;border-bottom:1px solid #555;font-family:Arial,sans-serif;background:transparent;outline:none;width:100%;">
+    </div>
+    <div style="flex:3;padding:5px 7px;display:flex;flex-direction:column;gap:2px;">
+      <span style="font-size:9pt;font-weight:bold;">Roleplay topic:</span>
+      <textarea id="h-case" rows="2" style="font-size:10pt;font-family:Arial,sans-serif;border:none;border-bottom:1px solid #555;background:transparent;outline:none;resize:none;padding:0;line-height:1.3;overflow:hidden;width:100%;max-height:44px;" oninput="if(this.scrollHeight>46)this.value=this.value.substring(0,this.value.length-1);"></textarea>
+    </div>
+  </div>
+  <div style="display:flex;border:1.5px solid #000;border-bottom:none;border-top:none;">
+    <div style="flex:2;padding:5px 7px;border-right:1px solid #000;display:flex;align-items:center;gap:4px;">
+      <span style="font-size:9pt;font-weight:bold;white-space:nowrap;">Date:</span>
+      <input type="date" id="h-date" style="font-size:9pt;font-family:Arial,sans-serif;border:none;border-bottom:1px solid #555;background:transparent;outline:none;flex:1;">
+    </div>
+    <div style="flex:3;padding:5px 7px;display:flex;align-items:center;gap:4px;">
+      <span style="font-size:9pt;font-weight:bold;white-space:nowrap;">Assessor:</span>
+      <input type="text" id="h-assessor" style="font-size:10pt;font-family:Arial,sans-serif;border:none;border-bottom:1px solid #555;background:transparent;outline:none;flex:1;">
+    </div>
+  </div>
+  <div class="rubric-title-wrap">
+    <span>Primary Healthcare (OTC/POM)</span>
+  </div>
+  <div style="border:1.5px solid #000;border-bottom:none;border-top:none;padding:4px 10px;background:#fafafa;display:flex;gap:20px;align-items:center;font-size:8pt;flex-wrap:nowrap;">
+    <span style="font-weight:bold;color:#555;white-space:nowrap;">Rating scale:</span>
+    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#e74c3c;display:inline-block;border:1px solid #c0392b;"></span><strong>Red</strong> — Not demonstrated</span>
+    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#f1c40f;display:inline-block;border:1px solid #d4ac0d;"></span><strong>Yellow</strong> — Partially demonstrated</span>
+    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#27ae60;display:inline-block;border:1px solid #1e8449;"></span><strong>Green</strong> — Fully demonstrated</span>
+  </div>
+  <table class="rubric-table"><colgroup><col style="width:80%"><col style="width:20%"></colgroup><tbody id="mainBody"></tbody></table>
+  <div class="standards-header">Global scale scoring</div>
+  <table class="standards-table"><colgroup><col style="width:80%"><col style="width:20%"></colgroup><tbody id="stdBody"></tbody></table>
+  <div class="rating-footer" id="ratingFooter">
+    <div class="rating-col" data-level="1">Poor skills</div>
+    <div class="rating-col" data-level="2">Limited skills</div>
+    <div class="rating-col" data-level="3">At expected standard</div>
+    <div class="rating-col" data-level="4">Above expected standard</div>
+    <div class="rating-col" data-level="5">Well above expected standard</div>
+  </div>
+  <div class="time-comments-row">
+    <div class="time-cell">
+      <div class="tc-label" style="text-align:center;">Time Management</div>
+      <div id="timer-block" style="display:flex;flex-direction:column;gap:3px;align-items:center;margin-top:3px;width:100%;">
+        <div id="timer-display" style="font-family:'Courier New',monospace;font-size:18px;font-weight:bold;color:#003B6E;letter-spacing:1px;line-height:1;text-align:center;">7:00</div>
+        <div style="display:flex;gap:3px;align-items:center;justify-content:center;">
+          <button id="timer-start" onclick="timerStart()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#003B6E;color:white;border:none;border-radius:3px;cursor:pointer;">▶</button>
+          <button id="timer-pause" onclick="timerPause()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#888;color:white;border:none;border-radius:3px;cursor:pointer;display:none;">⏸</button>
+          <button id="timer-reset" onclick="timerReset()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#f0f0f0;color:#333;border:1px solid #ccc;border-radius:3px;cursor:pointer;">↺</button>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;justify-content:center;margin-top:1px;">
+          <button class="mbtn red" id="tm-red" onclick="setTM('red',this)" title="Red — Not demonstrated" style="font-size:12px;width:22px;height:22px;padding:0;">🔴</button>
+          <button class="mbtn amber" id="tm-amber" onclick="setTM('amber',this)" title="Yellow — Partially demonstrated" style="font-size:12px;width:22px;height:22px;padding:0;">🟡</button>
+          <button class="mbtn green" id="tm-green" onclick="setTM('green',this)" title="Green — Fully demonstrated" style="font-size:12px;width:22px;height:22px;padding:0;">🟢</button>
+        </div>
+      </div>
+    </div>
+    <div class="comments-cell"><div class="tc-label">Comments:</div><textarea class="tc-textarea" placeholder="Assessor comments..."></textarea></div>
+  </div>
+</div>
+<script>
+const criteria=[
+  {text:'<strong>Professionally greets patient</strong> &amp; offers a private consultation if required'},
+  {text:'<strong>Who is the patient?</strong> Establishes relevant info eg. Name, age, weight, gender etc'},
+  {text:'<strong>What are the signs and symptoms?</strong> Attempts to identify root cause. Investigates location, frequency, nature &amp; intensity, onset time, associated symptoms, aggravating &amp; relieving factors where relevant.'},
+  {text:'<strong>How long has the patient experienced the above?</strong>'},
+  {text:'<strong>Actions/medicines taken so far?</strong> Was this an appropriate option and how was it used?'},
+  {text:'<strong>Medications/Supplements?</strong> Indication and how they\'re using them. Any recent changes to regimen? eg. Dose change, new med, stopped med? Checks if dispensing history available for viewing?'},
+  {text:'<strong>Medical conditions/Health issues?</strong> Surveys overall management of their condition &amp; response to therapy.'},
+  {text:'<strong>Allergies</strong> to any products / medication'},
+  {text:'<strong>Pregnant or Breastfeeding</strong> — Identifies which trimester and assess risk level using NZF'},
+  {text:'<strong>Identification of red flags</strong> and need for referral if needed'},
+  {divider:'Treatment &amp; Management'},
+  {text:'<strong>Performs a differential diagnosis</strong> &amp; explains final diagnosis using patient-friendly language'},
+  {text:'<strong>If denying the request</strong> of a particular product/service, a clear explanation why this is the case clearly justified'},
+  {text:'<strong>Recommendation of appropriate product(s) and/or non-pharmacological advice</strong> with reasoning. Consider possible Interactions, cautions/contraindications, side effects, Preg/BF etc — clinically referenced where applicable'},
+  {text:'<strong>Explanation of the features and benefits</strong> of the recommended product(s)'},
+  {text:'<strong>Walkthrough on how to use</strong> selected product(s), expected onset of action &amp; expected side effects.'},
+  {text:'<strong>Relevant non-pharmacological / self-care</strong> advice &amp; education provided'},
+  {text:'<strong>Fulfils all legal documentation</strong> required for supply of medicine'},
+  {text:'<strong>Finishes consultation professionally</strong> with advice for further referral where necessary'},
+];
+const standards=[
+  '1) &nbsp;Verbal &amp; Non-verbal expression',
+  "2) &nbsp;Response to patient's feeling and needs",
+  '3) &nbsp;Degree of focus and logic',
+  '4) &nbsp;Practices in a legal, ethical &amp; professional manner',
+  '5) &nbsp;Delivers accurate information and never puts the patient in harm.',
+];
+const marks={};
+let rating=null;
+function makeMarkBtns(rowId, includeNA=true){
+  const wrap=document.createElement('div');wrap.className='mark-btns';
+  const btns = includeNA
+    ? [{type:'na',label:'N/A',title:'Not applicable'},{type:'red',label:'🔴',title:'Red — Not demonstrated'},{type:'amber',label:'🟡',title:'Yellow — Partially demonstrated'},{type:'green',label:'🟢',title:'Green — Fully demonstrated'}]
+    : [{type:'red',label:'🔴',title:'Red — Not demonstrated'},{type:'amber',label:'🟡',title:'Yellow — Partially demonstrated'},{type:'green',label:'🟢',title:'Green — Fully demonstrated'}];
+  btns.forEach(({type,label,title})=>{
+    const b=document.createElement('button');b.className='mbtn '+type;
+    b.textContent=label;b.title=title;
+    b.addEventListener('click',()=>{marks[rowId]=marks[rowId]===type?null:type;updateRow(rowId);});
+    wrap.appendChild(b);
+  });return wrap;
+}
+function makeCommentTA(rowId){
+  const ta=document.createElement('textarea');ta.className='crit-comment';ta.rows=1;ta.placeholder='Comment...';ta.id='ta-'+rowId;return ta;
+}
+function updateRow(rowId){
+  const tr=document.getElementById('row-'+rowId);if(!tr)return;
+  tr.className=marks[rowId]?'row-'+marks[rowId]:'';
+  tr.querySelectorAll('.mbtn').forEach(b=>{b.classList.remove('active');if(marks[rowId]&&b.classList.contains(marks[rowId]))b.classList.add('active');});
+}
+const mainBody=document.getElementById('mainBody');
+criteria.forEach((c,i)=>{
+  if(c.divider!==undefined){
+    // Divider row
+    const tr=document.createElement('tr');tr.className='section-divider';
+    const td=document.createElement('td');td.colSpan=2;
+    td.innerHTML=c.divider;
+    tr.appendChild(td);mainBody.appendChild(tr);
+  } else {
+    const tr=document.createElement('tr');
+    const rowId='c'+i;tr.id='row-'+rowId;marks[rowId]=null;
+    const critTd=document.createElement('td');critTd.className='crit-cell';
+    // Text + comment toggle button inline
+    const topDiv=document.createElement('div');topDiv.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;gap:4px;';
+    const textDiv=document.createElement('div');textDiv.className='crit-text';textDiv.style.flex='1';textDiv.innerHTML=c.text;
+    const btn=document.createElement('button');btn.className='comment-toggle-btn';btn.textContent='...';btn.title='Add comment';btn.style.cssText='flex-shrink:0;margin-top:3px;margin-right:4px;';
+    const commentId='cc-'+rowId;
+    btn.onclick=()=>toggleSectionComment(commentId);
+    topDiv.appendChild(textDiv);topDiv.appendChild(btn);
+    critTd.appendChild(topDiv);
+    // Hidden comment textarea
+    const commentDiv=document.createElement('div');commentDiv.id=commentId;commentDiv.style.display='none';
+    const cta=document.createElement('textarea');cta.className='crit-comment';cta.rows=1;cta.placeholder='Comment...';
+    cta.addEventListener('input',()=>autoGrow(cta));
+    commentDiv.appendChild(cta);critTd.appendChild(commentDiv);
+    const markTd=document.createElement('td');markTd.className='mark-cell';markTd.appendChild(makeMarkBtns(rowId));
+    tr.appendChild(critTd);tr.appendChild(markTd);
+    mainBody.appendChild(tr);
+  }
+});
+const stdBody=document.getElementById('stdBody');
+standards.forEach((s,i)=>{
+  const rowId='std'+i;marks[rowId]=null;
+  const tr=document.createElement('tr');tr.id='row-'+rowId;
+  const labelTd=document.createElement('td');labelTd.className='std-label-cell';
+  const topDiv=document.createElement('div');topDiv.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;gap:4px;';
+  const textSpan=document.createElement('span');textSpan.style.flex='1';textSpan.innerHTML=s;
+  const btn=document.createElement('button');btn.className='comment-toggle-btn';btn.textContent='...';btn.title='Add comment';btn.style.cssText='flex-shrink:0;margin-top:1px;';
+  const commentId='cc-'+rowId;
+  btn.onclick=()=>toggleSectionComment(commentId);
+  topDiv.appendChild(textSpan);topDiv.appendChild(btn);
+  labelTd.appendChild(topDiv);
+  const commentDiv=document.createElement('div');commentDiv.id=commentId;commentDiv.style.display='none';
+  const cta=document.createElement('textarea');cta.className='crit-comment';cta.rows=1;cta.placeholder='Comment...';
+  cta.addEventListener('input',()=>autoGrow(cta));
+  commentDiv.appendChild(cta);labelTd.appendChild(commentDiv);
+  const markTd=document.createElement('td');markTd.className='std-mark-cell';markTd.appendChild(makeMarkBtns(rowId, false));
+  tr.appendChild(labelTd);tr.appendChild(markTd);stdBody.appendChild(tr);
+});
+document.querySelectorAll('.rating-col').forEach(col=>{
+  col.addEventListener('click',()=>{
+    const level=col.getAttribute('data-level');
+    rating=rating===level?null:level;
+    document.querySelectorAll('.rating-col').forEach(c=>{c.className='rating-col'+(rating&&c.getAttribute('data-level')===rating?' sel-'+rating:'');});
+  });
+});
+document.getElementById('h-date').value=new Date().toISOString().split('T')[0];
+
+function toggleSectionComment(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const isHidden=el.style.display==='none'||el.style.display==='';
+  el.style.display=isHidden?'table-cell':'none';
+  if(isHidden){const ta=el.querySelector('textarea');if(ta){ta.focus();autoGrow(ta);}}
+}
+
+// 7-minute countdown timer
+let timerSeconds = 420;
+let timerInterval = null;
+let timerRunning = false;
+
+function timerTick() {
+  timerSeconds--;
+  updateTimerDisplay();
+  // Trigger blink at exactly 2 minutes remaining
+  if (timerSeconds === 120) triggerBlink('amber');
+  if (timerSeconds <= 0) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerInterval = null;
+    document.getElementById('timer-display').textContent = '⏰ TIME';
+    document.getElementById('timer-start').style.display = 'none';
+    document.getElementById('timer-pause').style.display = 'none';
+    triggerBlink('red');
+  }
+}
+
+function triggerBlink(type) {
+  const page = document.querySelector('.page');
+  const timeCell = document.getElementById('timer-block');
+  const cls = type === 'red' ? 'timer-blink-red' : 'timer-blink-amber';
+  // Remove any existing blink
+  page.classList.remove('timer-blink-amber','timer-blink-red');
+  timeCell.classList.remove('timer-blink-amber','timer-blink-red');
+  void page.offsetWidth; // force reflow
+  page.classList.add(cls);
+  timeCell.classList.add(cls);
+  // For amber (2 min warning) — stop blinking after 5 seconds
+  // For red (time up) — blink until reset
+  if (type === 'amber') {
+    setTimeout(() => {
+      page.classList.remove(cls);
+      timeCell.classList.remove(cls);
+    }, 5000);
+  }
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  const el = document.getElementById('timer-display');
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  if (timerSeconds <= 60 && timerSeconds > 0) el.style.color = '#e74c3c';
+  else if (timerSeconds <= 120 && timerSeconds > 0) el.style.color = '#f39c12';
+  else el.style.color = '#003B6E';
+}
+
+function timerStart() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(timerTick, 1000);
+  document.getElementById('timer-start').style.display = 'none';
+  document.getElementById('timer-pause').style.display = 'inline-block';
+}
+
+function timerPause() {
+  if (!timerRunning) return;
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerInterval = null;
+  document.getElementById('timer-start').style.display = 'inline-block';
+  document.getElementById('timer-pause').style.display = 'none';
+}
+
+function timerReset() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerInterval = null;
+  timerSeconds = 420;
+  updateTimerDisplay();
+  document.getElementById('timer-start').style.display = 'inline-block';
+  document.getElementById('timer-pause').style.display = 'none';
+  // Clear any blinking
+  const page = document.querySelector('.page');
+  const timeCell = document.getElementById('timer-block');
+  page.classList.remove('timer-blink-amber','timer-blink-red');
+  timeCell.classList.remove('timer-blink-amber','timer-blink-red');
+}
+function setTM(type,btn){
+  tmRating=tmRating===type?null:type;
+  ['red','amber','green'].forEach(t=>{
+    const b=document.getElementById('tm-'+t);
+    if(b){b.classList.remove('active');if(tmRating===t)b.classList.add('active');}
+  });
+}
+
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all marks and comments?'))return;
+  Object.keys(marks).forEach(k=>marks[k]=null);rating=null;
+  document.querySelectorAll('[id^="row-"]').forEach(tr=>tr.className='');
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.crit-comment,.tc-textarea').forEach(ta=>ta.value='');
+  document.querySelectorAll('.rating-col').forEach(c=>c.className='rating-col');
+  document.getElementById('h-name').value='';document.getElementById('h-case').value='';
+  document.getElementById('h-assessor').value='';document.getElementById('h-date').value=new Date().toISOString().split('T')[0];
+  tmRating=null;['red','amber','green'].forEach(t=>{const b=document.getElementById('tm-'+t);if(b)b.classList.remove('active');});
+  document.querySelectorAll('.section-comment-area,.crit-comment').forEach(ta=>{ta.value='';});
+  document.querySelectorAll('[id^="sc-"],[id^="cc-"]').forEach(el=>el.style.display='none');
+  timerReset();
+});
+document.getElementById('printBtn').addEventListener('click', () => {
+  // Mark open comment containers as visible for print
+  document.querySelectorAll('[id^="cc-"],[id^="sc-"]').forEach(el => {
+    if (el.style.display !== 'none') el.classList.add('print-visible');
+  });
+  const textareas = document.querySelectorAll('textarea');
+  textareas.forEach(ta => {
+    if (!ta.value.trim()) {
+      ta.classList.add('hidden-for-print');
+      return;
+    }
+    const div = document.createElement('div');
+    div.className = ta.className + ' print-expanded';
+    div.style.whiteSpace = 'pre-wrap';
+    div.style.wordBreak = 'break-word';
+    div.style.minHeight = '0';
+    div.style.fontFamily = 'Arial,sans-serif';
+    div.style.fontSize = '8.5pt';
+    div.style.padding = '2px 6px';
+    div.style.background = 'inherit';
+    div.style.borderTop = '1px dashed #bbb';
+    div.style.display = 'block';
+    div.style.width = '100%';
+    div.textContent = ta.value;
+    ta.classList.add('hidden-for-print');
+    ta.parentNode.insertBefore(div, ta.nextSibling);
+  });
+  function cleanup() {
+    document.querySelectorAll('.print-expanded').forEach(d => d.remove());
+    document.querySelectorAll('.hidden-for-print').forEach(ta => ta.classList.remove('hidden-for-print'));
+    document.querySelectorAll('.print-visible').forEach(el => el.classList.remove('print-visible'));
+    window.removeEventListener('afterprint', cleanup);
+  }
+  window.addEventListener('afterprint', cleanup);
+  window.print();
+});
+
+// Auto-grow textareas as user types — reset first to get true scrollHeight
+function autoGrow(el){
+  el.style.height='0px';
+  el.style.height=el.scrollHeight+'px';
+}
+document.addEventListener('input',e=>{if(e.target.tagName==='TEXTAREA')autoGrow(e.target);});
+</script>
+</body>
+</html>
