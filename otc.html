@@ -215,6 +215,7 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
           <button id="timer-start" onclick="timerStart()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#003B6E;color:white;border:none;border-radius:3px;cursor:pointer;">▶</button>
           <button id="timer-pause" onclick="timerPause()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#888;color:white;border:none;border-radius:3px;cursor:pointer;display:none;">⏸</button>
           <button id="timer-reset" onclick="timerReset()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#f0f0f0;color:#333;border:1px solid #ccc;border-radius:3px;cursor:pointer;">↺</button>
+          <button id="timer-stop" onclick="stopFlashing()" style="padding:2px 8px;font-size:9pt;font-weight:600;background:#E2231A;color:white;border:none;border-radius:3px;cursor:pointer;display:none;">■ Stop</button>
         </div>
         <div style="display:flex;gap:4px;align-items:center;justify-content:center;margin-top:1px;">
           <button class="mbtn red" id="tm-red" onclick="setTM('red',this)" title="Red = Not Demonstrated" style="font-size:12px;width:22px;height:22px;padding:0;">🔴</button>
@@ -249,12 +250,12 @@ const criteria=[
   {text:'<strong>Finishes consultation professionally</strong> with advice for further referral where necessary'},
 ];
 const standards=[
-  '1) &nbsp;Verbal and Non-verbal communication is tailored, clear &amp; confident',
-  '2) &nbsp;Appropriate response to patient&#39;s feelings/needs. Does so perceptively &amp; genuinely (e.g. empathy, reassurance)',
-  '3) &nbsp;Follows a logical structure &amp; flow, demonstrating Pharmacist-level decision making with clear explanations',
-  '4) &nbsp;Practices in a legal, ethical, and professional manner',
-  '5) &nbsp;Delivers accurate information and never puts the patient in harm',
-  '6) &nbsp;Strong organisation &amp; time management and establishes control in direction of consultation',
+  '1) &nbsp;<strong>Verbal</strong> &amp; <strong>Non-verbal</strong> communication is <strong>tailored, clear &amp; confident</strong>',
+  '2) &nbsp;<strong>Appropriate response to patient&#39;s feelings/needs.</strong> Does so perceptively &amp; genuinely (e.g. empathy, reassurance)',
+  '3) &nbsp;Demonstrates <strong>Pharmacist-level decision</strong> making with <strong>clear explanations.</strong> Follows a logical structure &amp; flow.',
+  '4) &nbsp;Practices in a <strong>legal, ethical, and professional manner</strong>',
+  '5) &nbsp;Delivers <strong>accurate information</strong> and <strong>never puts the patient in harm</strong>',
+  '6) &nbsp;<strong>Strong organisation &amp; time management</strong> and establishes control in direction of consultation',
 ];
 const marks={};
 let rating=null;
@@ -327,7 +328,7 @@ standards.forEach((s,i)=>{
   const cta=document.createElement('textarea');cta.className='crit-comment';cta.rows=1;cta.placeholder='Comment...';
   cta.addEventListener('input',()=>autoGrow(cta));
   commentDiv.appendChild(cta);labelTd.appendChild(commentDiv);
-  const markTd=document.createElement('td');markTd.className='std-mark-cell';markTd.appendChild(makeMarkBtns(rowId, false));
+  const markTd=document.createElement('td');markTd.className='std-mark-cell';markTd.appendChild(makeMarkBtns(rowId, true));
   tr.appendChild(labelTd);tr.appendChild(markTd);stdBody.appendChild(tr);
 });
 document.querySelectorAll('.rating-col').forEach(col=>{
@@ -354,7 +355,7 @@ function timerTick() {
     clearInterval(timerInterval);
     timerRunning = false;
     timerInterval = null;
-    document.getElementById('timer-display').textContent = '⏰ TIME';
+    document.getElementById('timer-display').textContent = '⏰ 0:00';
     document.getElementById('timer-start').style.display = 'none';
     document.getElementById('timer-pause').style.display = 'none';
     triggerBlink('red');
@@ -379,6 +380,7 @@ function triggerBlink(type) {
       timeCell.classList.remove(cls);
     }, 5000);
   }
+  if (type === 'red') { document.getElementById('timer-stop').style.display='inline-block'; }
 }
 
 function updateTimerDisplay() {
@@ -389,6 +391,14 @@ function updateTimerDisplay() {
   if (timerSeconds <= 60 && timerSeconds > 0) el.style.color = '#e74c3c';
   else if (timerSeconds <= 120 && timerSeconds > 0) el.style.color = '#f39c12';
   else el.style.color = '#003B6E';
+}
+
+function stopFlashing(){
+  const page=document.querySelector('.page');
+  const timeCell=document.getElementById('timer-block');
+  page.classList.remove('timer-blink-red','timer-blink-amber');
+  timeCell.classList.remove('timer-blink-red','timer-blink-amber');
+  document.getElementById('timer-stop').style.display='none';
 }
 
 function timerStart() {
@@ -421,6 +431,7 @@ function timerReset() {
   const timeCell = document.getElementById('timer-block');
   page.classList.remove('timer-blink-amber','timer-blink-red');
   timeCell.classList.remove('timer-blink-amber','timer-blink-red');
+  document.getElementById('timer-stop').style.display='none';
 }
 let tmRating=null;
 function setTM(type,btn){
