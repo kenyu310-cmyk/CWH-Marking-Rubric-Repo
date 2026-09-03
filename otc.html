@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=780">
-<title>OSCE Marking Rubric — Primary Healthcare (OTC/POM)</title>
+<title>OSCE Marking Rubric — Reviewing &amp; Managing Medicine Therapy (Rx enquiry, EMS, Disp Errors)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;color:#000;}
@@ -20,7 +20,6 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 .header-cell input{flex:1;border:none;border-bottom:1px solid #555;font-family:Arial,sans-serif;font-size:9pt;padding:1px 2px;background:transparent;outline:none;min-width:0;}
 .header-cell input:focus{border-bottom-color:#000;background:#fffde7;}
 .rubric-title{border:1.5px solid #000;border-bottom:none;padding:5px 7px;font-size:11pt;font-weight:bold;background:#bfbfbf;text-align:center;}
-.intro-line{border:1.5px solid #000;border-bottom:none;padding:4px 7px;font-size:8.5pt;font-style:italic;background:#f2f2f2;}
 .rubric-table{width:100%;border-collapse:collapse;border:1.5px solid #000;}
 .rubric-table td{border:1px solid #000;vertical-align:top;padding:0;}
 .crit-cell{width:80%;padding:0;vertical-align:top;}
@@ -32,7 +31,6 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 .mark-btns{display:flex;gap:2px;justify-content:center;flex-wrap:nowrap;align-items:center;}
 .mbtn{height:24px;width:24px;border:1.5px solid transparent;background:transparent;font-size:13px;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:0;font-family:Arial,sans-serif;flex-shrink:0;transition:all 0.12s;}
 .mbtn:hover{filter:brightness(0.9);transform:scale(1.05);}
-/* Traffic light buttons */
 .mbtn.red{background:#f5c0c0;border-color:#c0392b;color:#7a1515;}
 .mbtn.red.active{background:#e74c3c;border-color:#c0392b;color:#fff;box-shadow:0 1px 4px rgba(192,57,43,0.4);}
 .mbtn.amber{background:#fef9c3;border-color:#d4ac0d;color:#7a6200;}
@@ -59,31 +57,13 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 .row-amber .std-label-cell{background:#fefce8!important;} .row-amber .std-mark-cell{background:#fef9c3!important;}
 .row-green .std-label-cell{background:#f0fbf4!important;} .row-green .std-mark-cell{background:#d4f5df!important;}
 .row-na .std-label-cell{background:inherit;} .row-na .std-mark-cell{background:#e8e8e8;}
-/* Traffic light legend */
-.tl-legend{display:flex;gap:10px;justify-content:center;font-size:7pt;margin-top:4px;flex-wrap:wrap;}
-.tl-legend span{display:flex;align-items:center;gap:3px;}
-.tl-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
 /* Timer blink animations */
 @keyframes blink-amber{0%,100%{background:transparent;}50%{background:#f39c12;}}
 @keyframes blink-red{0%,100%{background:transparent;}50%{background:#e74c3c;}}
 .timer-blink-amber{animation:blink-amber 0.6s ease-in-out infinite;}
 .timer-blink-red{animation:blink-red 0.4s ease-in-out infinite;}
-.section-divider td{background:#d0d0d0;font-size:9pt;font-weight:bold;text-transform:uppercase;letter-spacing:0.8px;padding:4px 7px;border-top:2px solid #000;border-bottom:1px solid #000;color:#000;text-align:center;}
-/* Section comment toggle */
-.section-comment-row td{border:1px solid #000;border-top:none;padding:0;background:#f9f9f9;}
-.section-comment-area{width:100%;border:none;font-family:Arial,sans-serif;font-size:16px;padding:5px 8px;resize:none;background:#f9f9f9;outline:none;color:#222;line-height:1.4;display:block;overflow:hidden;min-height:32px;box-sizing:border-box;}
-.section-comment-area:focus{background:#fffde7;}
-.section-comment-area::placeholder{color:#bbb;font-style:italic;}
-.comment-toggle-btn{
-  background:none;border:1px solid #999;border-radius:3px;
-  font-size:7pt;padding:1px 4px;cursor:pointer;
-  color:#555;margin-left:8px;vertical-align:middle;
-  font-family:Arial,sans-serif;line-height:1.2;
-}
-.comment-toggle-btn:hover{background:#e8e8e8;border-color:#555;}
 .comment-toggle-btn{background:none;border:1px solid #999;border-radius:3px;font-size:7pt;padding:1px 4px;cursor:pointer;color:#555;margin-left:8px;vertical-align:middle;font-family:Arial,sans-serif;line-height:1.2;}
 .comment-toggle-btn:hover{background:#e8e8e8;border-color:#555;}
-.rubric-title-wrap{border:1.5px solid #000;border-bottom:none;padding:5px 7px;font-size:11pt;font-weight:bold;background:#bfbfbf;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;}
 .standards-header{border:1.5px solid #000;border-top:none;padding:4px 7px;font-size:9pt;font-weight:bold;background:#d9d9d9;text-align:center;text-transform:uppercase;letter-spacing:0.8px;}
 .standards-table{width:100%;border-collapse:collapse;border:1.5px solid #000;border-top:none;}
 .standards-table td{border:1px solid #000;padding:2px 4px;font-size:8.5pt;vertical-align:middle;}
@@ -93,10 +73,10 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 .rating-col{flex:1;border-right:1px solid #000;text-align:center;cursor:pointer;background:#e8e8e8;padding:5px 4px;font-size:8pt;line-height:1.3;user-select:none;}
 .rating-col:last-child{border-right:none;}
 .rating-col:hover{filter:brightness(0.94);}
-.rating-col.sel-1{background:#e74c3c;color:#fff;font-weight:700;} 
-.rating-col.sel-2{background:#e74c3c;color:#fff;font-weight:700;} 
-.rating-col.sel-3{background:#27ae60;color:#fff;font-weight:700;} 
-.rating-col.sel-4{background:#27ae60;color:#fff;font-weight:700;} 
+.rating-col.sel-1{background:#e74c3c;color:#fff;font-weight:700;}
+.rating-col.sel-2{background:#e74c3c;color:#fff;font-weight:700;}
+.rating-col.sel-3{background:#27ae60;color:#fff;font-weight:700;}
+.rating-col.sel-4{background:#27ae60;color:#fff;font-weight:700;}
 .rating-col.sel-5{background:#27ae60;color:#fff;font-weight:700;}
 .time-comments-row{display:flex;border:1.5px solid #000;border-top:none;min-height:0;}
 .time-cell{width:18%;border-right:1px solid #000;padding:4px 5px;background:#f7f7f7;display:flex;flex-direction:column;gap:2px;}
@@ -111,25 +91,16 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
   .page{margin:0;box-shadow:none;padding:10mm;}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
   .rubric-table tr,.standards-table tr{page-break-inside:avoid;break-inside:avoid;}
-
-  .comment-toggle-btn{display:none!important;}
   #timer-start,#timer-pause,#timer-reset{display:none!important;}
+  .comment-toggle-btn{display:none!important;}
   textarea.hidden-for-print{display:none!important;}
-  /* Hide collapsed comment containers */
-  [id^="cc-"],[id^="sc-"]{display:none!important;}
-  [id^="cc-"].print-visible,[id^="sc-"].print-visible{display:block!important;}
-
-  /* Hide empty comment boxes */
   .print-expanded:empty{display:none!important;}
-
   /* Traffic lights — show all emoji, dim unselected, bold the active one */
   .mbtn{display:inline-flex!important;opacity:0.12!important;font-size:11px!important;width:20px!important;height:20px!important;padding:0!important;border:none!important;background:transparent!important;box-shadow:none!important;}
   .mbtn.active{opacity:1!important;font-size:14px!important;width:22px!important;height:22px!important;}
   /* TM traffic lights — always show all three */
   #tm-red,#tm-amber,#tm-green{display:inline-flex!important;opacity:0.15!important;}
   #tm-red.active,#tm-amber.active,#tm-green.active{opacity:1!important;font-size:14px!important;}
-
-  /* Row colours */
   .row-red td.crit-cell,.row-red td.crit-cell *{background:#fff0f0!important;}
   .row-amber td.crit-cell,.row-amber td.crit-cell *{background:#fefce8!important;}
   .row-green td.crit-cell,.row-green td.crit-cell *{background:#f0fbf4!important;}
@@ -138,22 +109,12 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
   .row-amber .std-label-cell,.row-amber .std-label-cell *{background:#fefce8!important;}
   .row-green .std-label-cell,.row-green .std-label-cell *{background:#f0fbf4!important;}
   .row-na .std-label-cell,.row-na .std-label-cell *{background:inherit!important;}
-
-  /* Rating footer */
   .rating-col.sel-1{background:#e74c3c!important;color:#fff!important;font-weight:700!important;}
   .rating-col.sel-2{background:#e74c3c!important;color:#fff!important;font-weight:700!important;}
   .rating-col.sel-3{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
   .rating-col.sel-4{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
   .rating-col.sel-5{background:#27ae60!important;color:#fff!important;font-weight:700!important;}
-  .tl-legend{display:none!important;}
-
-  /* Expanded content divs */
-  .print-expanded{
-    display:block!important;height:auto!important;overflow:visible!important;
-    white-space:pre-wrap!important;word-break:break-word!important;
-    page-break-inside:avoid;font-size:8.5pt;
-    border-top:1px dashed #bbb;padding:2px 6px;
-  }
+  .print-expanded{display:block!important;height:auto!important;overflow:visible!important;white-space:pre-wrap!important;word-break:break-word!important;page-break-inside:avoid;font-size:8.5pt;border-top:1px dashed #bbb;padding:2px 6px;}
   .time-comments-row{min-height:0;overflow:visible!important;}
   .time-cell,.comments-cell{overflow:visible!important;}
 }
@@ -167,7 +128,7 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 <body>
 <div class="toolbar">
   <button class="tbtn" onclick="window.location.href='index.html'" title="Back to home">← Back</button>
-  <span class="toolbar-title">CWH NZ — Primary Healthcare (OTC/POM)</span>
+  <span class="toolbar-title">CWH NZ — Reviewing &amp; Managing Medicine Therapy</span>
   <button class="tbtn" id="resetBtn">↺ Reset Form</button>
   <button class="tbtn primary" id="printBtn">⎙ Print / Save PDF</button>
 </div>
@@ -192,9 +153,7 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
       <input type="text" id="h-assessor" style="font-size:10pt;font-family:Arial,sans-serif;border:none;border-bottom:1px solid #555;background:transparent;outline:none;flex:1;">
     </div>
   </div>
-  <div class="rubric-title-wrap">
-    <span>Primary Healthcare (OTC/POM)</span>
-  </div>
+  <div style="border:1.5px solid #000;border-bottom:none;padding:5px 7px;font-size:11pt;font-weight:bold;background:#bfbfbf;text-align:center;">Reviewing &amp; Managing Medicine Therapy (Rx enquiry, EMS, Disp Errors)</div>
   <div class="rating-scale-row">
     <span class="rs-item rs-label">Rating scale:</span>
     <span class="rs-item"><span class="rs-dot" style="background:#e74c3c;border-color:#c0392b;"></span><strong>Red</strong> = Not Demonstrated</span>
@@ -234,25 +193,20 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
 </div>
 <script>
 const criteria=[
-  {text:'<strong>Professionally greets patient</strong> &amp; offers a private consultation if required'},
-  {text:'<strong>Who is the patient?</strong> Establishes relevant info eg. Name, age, weight, gender etc'},
-  {text:'<strong>What are the signs and symptoms?</strong> Attempts to identify root cause. Investigates location, frequency, nature &amp; intensity, onset time, associated symptoms, aggravating &amp; relieving factors where relevant.'},
-  {text:'<strong>How long has the patient experienced the above?</strong>'},
-  {text:'<strong>Actions/medicines taken so far?</strong> Was this an appropriate option and how was it used?'},
-  {text:'<strong>Medications/Supplements?</strong> Indication and how they\'re using them. Any recent changes to regimen? eg. Dose change, new med, stopped med? Checks if dispensing history available for viewing?'},
-  {text:'<strong>Medical conditions/Health issues?</strong> Surveys overall management of their condition &amp; response to therapy.'},
-  {text:'<strong>Allergies</strong> to any products / medication'},
-  {text:'<strong>Pregnant or Breastfeeding</strong> — Identifies which trimester and assess risk level using NZF'},
-  {text:'<strong>Identification of red flags</strong> and need for referral if needed'},
-  {divider:'Treatment &amp; Management'},
-  {text:'<strong>Performs a differential diagnosis</strong> &amp; explains final diagnosis using patient-friendly language'},
+  {text:'<strong>Professionally greets patient/HCP</strong> &amp; offers a private consultation if required'},
+  {text:'<strong>Who is the patient?</strong> Establishes relevant info eg. Name, age, weight, gender, Preg/BF, comorbidities etc'},
+  {text:'<strong>Utilises relevant open-ended questions</strong> to accurately identify issues requiring attention'},
+  {text:'<strong>Specific needs/beliefs/concerns</strong> are acknowledged and addressed appropriately'},
+  {text:'<strong>Full medication/medical history</strong> is checked — Indication and how they\'re using them. Any recent changes to regimen? eg. Dose change, new med, stopped med? Checks if dispensing history available for viewing?'},
+  {text:'<strong>Assess overall management of condition &amp; response to therapy highlighting any clinical concerns</strong> eg side effects, Interactions, cautions/contraindications, Preg/BF etc'},
+  {text:'<strong>Confirms previous dose of medication(s)</strong> with advice/instructions on subsequent dose(s)'},
+  {text:'<strong>Utilises clinical resources</strong> and references them appropriately'},
   {text:'<strong>If declining the request</strong> of a particular product/medicine/service, a clear explanation why this is the case &amp; clearly justified'},
-  {text:'<strong>Recommendation of appropriate product(s) and/or non-pharmacological advice</strong> with reasoning. Consider possible Interactions, cautions/contraindications, side effects, Preg/BF etc — clinically referenced where applicable'},
-  {text:'<strong>Explanation of the features and benefits</strong> of the recommended product(s)'},
-  {text:'<strong>Walkthrough on how to use</strong> selected product(s), expected onset of action &amp; expected side effects.'},
-  {text:'<strong>Relevant non-pharmacological / self-care</strong> advice &amp; education provided'},
+  {text:'<strong>Patient counselling tailored to level of health literacy</strong> — provides clear walkthrough on how the medicine works, why it\'s important, dose &amp; frequency and how to administer it'},
+  {text:'<strong>Walkthrough medication CALs &amp; other expected side effects</strong> providing a clear plan on how to manage'},
+  {text:'<strong>Counsels on common/relevant side effects</strong> and advice on how to manage'},
+  {text:'<strong>Offers patient an information leaflet</strong> and advice for follow-up or referral.'},
   {text:'<strong>Fulfils all legal documentation</strong> required for supply of medicine or to capture outcome of consultation'},
-  {text:'<strong>Finishes consultation professionally</strong> with advice for further referral where necessary'},
 ];
 const standards=[
   '1) &nbsp;<strong>Verbal</strong> &amp; <strong>Non-verbal</strong> communication is <strong>tailored, clear &amp; confident</strong>',
@@ -276,9 +230,6 @@ function makeMarkBtns(rowId, includeNA=true){
     wrap.appendChild(b);
   });return wrap;
 }
-function makeCommentTA(rowId){
-  const ta=document.createElement('textarea');ta.className='crit-comment';ta.rows=1;ta.placeholder='Comment...';ta.id='ta-'+rowId;return ta;
-}
 function updateRow(rowId){
   const tr=document.getElementById('row-'+rowId);if(!tr)return;
   tr.className=marks[rowId]?'row-'+marks[rowId]:'';
@@ -292,30 +243,23 @@ function toggleComment(id){
 }
 const mainBody=document.getElementById('mainBody');
 criteria.forEach((c,i)=>{
-  if(c.divider!==undefined){
-    const tr=document.createElement('tr');tr.className='section-divider';
-    const td=document.createElement('td');td.colSpan=2;
-    td.innerHTML=c.divider;
-    tr.appendChild(td);mainBody.appendChild(tr);
-  } else {
-    const tr=document.createElement('tr');
-    const rowId='c'+i;tr.id='row-'+rowId;marks[rowId]=null;
-    const critTd=document.createElement('td');critTd.className='crit-cell';
-    const topDiv=document.createElement('div');topDiv.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;gap:4px;';
-    const textDiv=document.createElement('div');textDiv.className='crit-text';textDiv.style.flex='1';textDiv.innerHTML=c.text;
-    const btn=document.createElement('button');btn.className='comment-toggle-btn';btn.textContent='...';btn.title='Add comment';btn.style.cssText='flex-shrink:0;margin-top:3px;margin-right:4px;';
-    const commentId='cc-'+rowId;
-    btn.onclick=()=>toggleComment(commentId);
-    topDiv.appendChild(textDiv);topDiv.appendChild(btn);
-    critTd.appendChild(topDiv);
-    const commentDiv=document.createElement('div');commentDiv.id=commentId;commentDiv.style.display='none';
-    const cta=document.createElement('textarea');cta.className='crit-comment';cta.rows=1;cta.placeholder='Comment...';
-    cta.addEventListener('input',()=>autoGrow(cta));
-    commentDiv.appendChild(cta);critTd.appendChild(commentDiv);
-    const markTd=document.createElement('td');markTd.className='mark-cell';markTd.appendChild(makeMarkBtns(rowId));
-    tr.appendChild(critTd);tr.appendChild(markTd);
-    mainBody.appendChild(tr);
-  }
+  const tr=document.createElement('tr');
+  const rowId='c'+i;tr.id='row-'+rowId;marks[rowId]=null;
+  const critTd=document.createElement('td');critTd.className='crit-cell';
+  const topDiv=document.createElement('div');topDiv.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;gap:4px;';
+  const textDiv=document.createElement('div');textDiv.className='crit-text';textDiv.style.flex='1';textDiv.innerHTML=c.text;
+  const btn=document.createElement('button');btn.className='comment-toggle-btn';btn.textContent='...';btn.title='Add comment';btn.style.cssText='flex-shrink:0;margin-top:3px;margin-right:4px;';
+  const commentId='cc-'+rowId;
+  btn.onclick=()=>toggleComment(commentId);
+  topDiv.appendChild(textDiv);topDiv.appendChild(btn);
+  critTd.appendChild(topDiv);
+  const commentDiv=document.createElement('div');commentDiv.id=commentId;commentDiv.style.display='none';
+  const cta=document.createElement('textarea');cta.className='crit-comment';cta.rows=1;cta.placeholder='Comment...';
+  cta.addEventListener('input',()=>autoGrow(cta));
+  commentDiv.appendChild(cta);critTd.appendChild(commentDiv);
+  const markTd=document.createElement('td');markTd.className='mark-cell';markTd.appendChild(makeMarkBtns(rowId));
+  tr.appendChild(critTd);tr.appendChild(markTd);
+  mainBody.appendChild(tr);
 });
 const stdBody=document.getElementById('stdBody');
 standards.forEach((s,i)=>{
@@ -345,59 +289,37 @@ document.querySelectorAll('.rating-col').forEach(col=>{
 });
 function localToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 document.getElementById('h-date').value=localToday();
-
-// 7-minute countdown timer
-let timerSeconds = 420;
-let timerInterval = null;
-let timerRunning = false;
-
-function timerTick() {
-  timerSeconds--;
-  updateTimerDisplay();
-  // Trigger blink at exactly 2 minutes remaining
-  if (timerSeconds === 120) triggerBlink('amber');
-  if (timerSeconds <= 0) {
-    clearInterval(timerInterval);
-    timerRunning = false;
-    timerInterval = null;
-    document.getElementById('timer-display').textContent = '⏰ 0:00';
-    document.getElementById('timer-start').style.display = 'none';
-    document.getElementById('timer-pause').style.display = 'none';
+let timerSeconds=420,timerInterval=null,timerRunning=false;
+function timerTick(){
+  timerSeconds--;updateTimerDisplay();
+  if(timerSeconds===120)triggerBlink('amber');
+  if(timerSeconds<=0){
+    clearInterval(timerInterval);timerRunning=false;timerInterval=null;
+    document.getElementById('timer-display').textContent='⏰ 0:00';
+    document.getElementById('timer-start').style.display='none';
+    document.getElementById('timer-pause').style.display='none';
     triggerBlink('red');
   }
 }
-
-function triggerBlink(type) {
-  const page = document.querySelector('.page');
-  const timeCell = document.getElementById('timer-block');
-  const cls = type === 'red' ? 'timer-blink-red' : 'timer-blink-amber';
-  // Remove any existing blink
+function triggerBlink(type){
+  const page=document.querySelector('.page');
+  const timeCell=document.getElementById('timer-block');
+  const cls=type==='red'?'timer-blink-red':'timer-blink-amber';
   page.classList.remove('timer-blink-amber','timer-blink-red');
   timeCell.classList.remove('timer-blink-amber','timer-blink-red');
-  void page.offsetWidth; // force reflow
-  page.classList.add(cls);
-  timeCell.classList.add(cls);
-  // For amber (2 min warning) — stop blinking after 5 seconds
-  // For red (time up) — blink until reset
-  if (type === 'amber') {
-    setTimeout(() => {
-      page.classList.remove(cls);
-      timeCell.classList.remove(cls);
-    }, 5000);
-  }
-  if (type === 'red') { document.getElementById('timer-stop').style.display='inline-block'; }
+  void page.offsetWidth;
+  page.classList.add(cls);timeCell.classList.add(cls);
+  if(type==='amber'){setTimeout(()=>{page.classList.remove(cls);timeCell.classList.remove(cls);},5000);}
+  if(type==='red'){document.getElementById('timer-stop').style.display='inline-block';}
 }
-
-function updateTimerDisplay() {
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  const el = document.getElementById('timer-display');
-  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-  if (timerSeconds <= 60 && timerSeconds > 0) el.style.color = '#e74c3c';
-  else if (timerSeconds <= 120 && timerSeconds > 0) el.style.color = '#f39c12';
-  else el.style.color = '#003B6E';
+function updateTimerDisplay(){
+  const m=Math.floor(timerSeconds/60),s=timerSeconds%60;
+  const el=document.getElementById('timer-display');
+  el.textContent=m+':'+(s<10?'0':'')+s;
+  if(timerSeconds<=60&&timerSeconds>0)el.style.color='#e74c3c';
+  else if(timerSeconds<=120&&timerSeconds>0)el.style.color='#f39c12';
+  else el.style.color='#003B6E';
 }
-
 function stopFlashing(){
   const page=document.querySelector('.page');
   const timeCell=document.getElementById('timer-block');
@@ -405,35 +327,24 @@ function stopFlashing(){
   timeCell.classList.remove('timer-blink-red','timer-blink-amber');
   document.getElementById('timer-stop').style.display='none';
 }
-
-function timerStart() {
-  if (timerRunning) return;
-  timerRunning = true;
-  timerInterval = setInterval(timerTick, 1000);
-  document.getElementById('timer-start').style.display = 'none';
-  document.getElementById('timer-pause').style.display = 'inline-block';
+function timerStart(){
+  if(timerRunning)return;timerRunning=true;
+  timerInterval=setInterval(timerTick,1000);
+  document.getElementById('timer-start').style.display='none';
+  document.getElementById('timer-pause').style.display='inline-block';
 }
-
-function timerPause() {
-  if (!timerRunning) return;
-  clearInterval(timerInterval);
-  timerRunning = false;
-  timerInterval = null;
-  document.getElementById('timer-start').style.display = 'inline-block';
-  document.getElementById('timer-pause').style.display = 'none';
+function timerPause(){
+  if(!timerRunning)return;clearInterval(timerInterval);timerRunning=false;timerInterval=null;
+  document.getElementById('timer-start').style.display='inline-block';
+  document.getElementById('timer-pause').style.display='none';
 }
-
-function timerReset() {
-  clearInterval(timerInterval);
-  timerRunning = false;
-  timerInterval = null;
-  timerSeconds = 420;
+function timerReset(){
+  clearInterval(timerInterval);timerRunning=false;timerInterval=null;timerSeconds=420;
   updateTimerDisplay();
-  document.getElementById('timer-start').style.display = 'inline-block';
-  document.getElementById('timer-pause').style.display = 'none';
-  // Clear any blinking
-  const page = document.querySelector('.page');
-  const timeCell = document.getElementById('timer-block');
+  document.getElementById('timer-start').style.display='inline-block';
+  document.getElementById('timer-pause').style.display='none';
+  const page=document.querySelector('.page');
+  const timeCell=document.getElementById('timer-block');
   page.classList.remove('timer-blink-amber','timer-blink-red');
   timeCell.classList.remove('timer-blink-amber','timer-blink-red');
   document.getElementById('timer-stop').style.display='none';
@@ -446,63 +357,43 @@ function setTM(type,btn){
     if(b){b.classList.remove('active');if(tmRating===t)b.classList.add('active');}
   });
 }
-
 document.getElementById('resetBtn').addEventListener('click',()=>{
   if(!confirm('Reset all marks and comments?'))return;
   Object.keys(marks).forEach(k=>marks[k]=null);rating=null;
   document.querySelectorAll('[id^="row-"]').forEach(tr=>tr.className='');
   document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.crit-comment,.tc-textarea').forEach(ta=>ta.value='');
+  document.querySelectorAll('[id^="cc-"]').forEach(el=>el.style.display='none');
   document.querySelectorAll('.rating-col').forEach(c=>c.className='rating-col');
   document.getElementById('h-name').value='';document.getElementById('h-case').value='';
   document.getElementById('h-assessor').value='';document.getElementById('h-date').value=localToday();
   tmRating=null;['red','amber','green'].forEach(t=>{const b=document.getElementById('tm-'+t);if(b)b.classList.remove('active');});
-  document.querySelectorAll('.crit-comment,.tc-textarea').forEach(ta=>ta.value='');
-  document.querySelectorAll('[id^="cc-"]').forEach(el=>el.style.display='none');
   timerReset();
 });
-document.getElementById('printBtn').addEventListener('click', () => {
-  // Mark open comment containers as visible for print
-  document.querySelectorAll('[id^="cc-"],[id^="sc-"]').forEach(el => {
-    if (el.style.display !== 'none') el.classList.add('print-visible');
-  });
-  const textareas = document.querySelectorAll('textarea');
-  textareas.forEach(ta => {
-    if (!ta.value.trim()) {
-      ta.classList.add('hidden-for-print');
-      return;
-    }
-    const div = document.createElement('div');
-    div.className = ta.className + ' print-expanded';
-    div.style.whiteSpace = 'pre-wrap';
-    div.style.wordBreak = 'break-word';
-    div.style.minHeight = '0';
-    div.style.fontFamily = 'Arial,sans-serif';
-    div.style.fontSize = '8.5pt';
-    div.style.padding = '2px 6px';
-    div.style.background = 'inherit';
-    div.style.borderTop = '1px dashed #bbb';
-    div.style.display = 'block';
-    div.style.width = '100%';
-    div.textContent = ta.value;
+document.getElementById('printBtn').addEventListener('click',()=>{
+  const textareas=document.querySelectorAll('textarea');
+  textareas.forEach(ta=>{
+    if(!ta.value.trim()){ta.classList.add('hidden-for-print');return;}
+    const div=document.createElement('div');
+    div.className=ta.className+' print-expanded';
+    div.style.whiteSpace='pre-wrap';div.style.wordBreak='break-word';
+    div.style.minHeight='0';div.style.fontFamily='Arial,sans-serif';
+    div.style.fontSize='8.5pt';div.style.padding='2px 6px';
+    div.style.background='inherit';div.style.borderTop='1px dashed #bbb';
+    div.style.display='block';div.style.width='100%';
+    div.textContent=ta.value;
     ta.classList.add('hidden-for-print');
-    ta.parentNode.insertBefore(div, ta.nextSibling);
+    ta.parentNode.insertBefore(div,ta.nextSibling);
   });
-  function cleanup() {
-    document.querySelectorAll('.print-expanded').forEach(d => d.remove());
-    document.querySelectorAll('.hidden-for-print').forEach(ta => ta.classList.remove('hidden-for-print'));
-    document.querySelectorAll('.print-visible').forEach(el => el.classList.remove('print-visible'));
-    window.removeEventListener('afterprint', cleanup);
+  function cleanup(){
+    document.querySelectorAll('.print-expanded').forEach(d=>d.remove());
+    document.querySelectorAll('.hidden-for-print').forEach(ta=>ta.classList.remove('hidden-for-print'));
+    window.removeEventListener('afterprint',cleanup);
   }
-  window.addEventListener('afterprint', cleanup);
+  window.addEventListener('afterprint',cleanup);
   window.print();
 });
-
-// Auto-grow textareas as user types — reset first to get true scrollHeight
-function autoGrow(el){
-  el.style.height='0px';
-  el.style.height=el.scrollHeight+'px';
-}
+function autoGrow(el){el.style.height='0px';el.style.height=el.scrollHeight+'px';}
 document.addEventListener('input',e=>{if(e.target.tagName==='TEXTAREA')autoGrow(e.target);});
 </script>
 </body>
