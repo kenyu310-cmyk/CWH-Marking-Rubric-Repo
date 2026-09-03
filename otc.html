@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=780">
 <title>OSCE Marking Rubric — Primary Healthcare (OTC/POM)</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -157,6 +157,11 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
   .time-comments-row{min-height:0;overflow:visible!important;}
   .time-cell,.comments-cell{overflow:visible!important;}
 }
+.rating-scale-row{border:1.5px solid #000;border-bottom:none;border-top:none;padding:4px 10px;background:#fafafa;display:flex;gap:14px;align-items:center;font-size:8pt;flex-wrap:wrap;row-gap:5px;}
+.rs-item{display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.rs-label{font-weight:bold;color:#555;}
+.rs-dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid;}
+
 </style>
 </head>
 <body>
@@ -190,11 +195,11 @@ body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#c8c8c8;co
   <div class="rubric-title-wrap">
     <span>Primary Healthcare (OTC/POM)</span>
   </div>
-  <div style="border:1.5px solid #000;border-bottom:none;border-top:none;padding:4px 10px;background:#fafafa;display:flex;gap:20px;align-items:center;font-size:8pt;flex-wrap:nowrap;">
-    <span style="font-weight:bold;color:#555;white-space:nowrap;">Rating scale:</span>
-    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#e74c3c;display:inline-block;border:1px solid #c0392b;"></span><strong>Red</strong> = Not Demonstrated</span>
-    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#f1c40f;display:inline-block;border:1px solid #d4ac0d;"></span><strong>Yellow</strong> = Partially Demonstrated</span>
-    <span style="display:flex;align-items:center;gap:4px;white-space:nowrap;"><span style="width:12px;height:12px;border-radius:50%;background:#27ae60;display:inline-block;border:1px solid #1e8449;"></span><strong>Green</strong> = Fully Demonstrated</span>
+  <div class="rating-scale-row">
+    <span class="rs-item rs-label">Rating scale:</span>
+    <span class="rs-item"><span class="rs-dot" style="background:#e74c3c;border-color:#c0392b;"></span><strong>Red</strong> = Not Demonstrated</span>
+    <span class="rs-item"><span class="rs-dot" style="background:#f1c40f;border-color:#d4ac0d;"></span><strong>Yellow</strong> = Partially Demonstrated</span>
+    <span class="rs-item"><span class="rs-dot" style="background:#27ae60;border-color:#1e8449;"></span><strong>Green</strong> = Fully Demonstrated</span>
   </div>
   <table class="rubric-table"><colgroup><col style="width:80%"><col style="width:20%"></colgroup><tbody id="mainBody"></tbody></table>
   <div class="standards-header">Global scale scoring</div>
