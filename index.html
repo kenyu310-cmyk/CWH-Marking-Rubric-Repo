@@ -78,10 +78,10 @@ body{font-family:'IBM Plex Sans',Arial,sans-serif;background:#003B6E;min-height:
 }
 .spark-particle{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;animation-name:spark-fly;animation-timing-function:cubic-bezier(0.15,0.7,0.3,1);animation-fill-mode:forwards;will-change:transform,opacity;}
 .card-grid{display:flex;gap:clamp(10px,4vw,24px);justify-content:center;flex-wrap:wrap;max-width:760px;width:100%;}
-.rubric-card{background:white;border-radius:16px;padding:clamp(8px,3vw,20px) clamp(10px,3vw,24px);width:min(320px,calc(50% - 16px));aspect-ratio:16/9;box-sizing:border-box;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,2vw,10px);border:3px solid transparent;transition:all 0.2s;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative;overflow:hidden;text-align:center;}
+.rubric-card{background:white;border-radius:16px;padding:clamp(8px,3vw,20px) clamp(10px,3vw,24px);width:min(320px,calc(50% - 16px));aspect-ratio:4/3;box-sizing:border-box;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,2vw,10px);border:3px solid transparent;transition:all 0.2s;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative;overflow:hidden;text-align:center;}
 .rubric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:#E2231A;}
 .rubric-card:hover{transform:translateY(-5px);box-shadow:0 20px 52px rgba(0,0,0,0.35);border-color:#E2231A;}
-.card-img{width:100%;flex:1;min-height:0;object-fit:cover;border-radius:10px;}
+.card-img{width:100%;flex:1;min-height:0;object-fit:cover;object-position:top center;border-radius:10px;}
 .card-icon{width:64px;height:64px;border-radius:14px;background:#EBF2FA;display:flex;align-items:center;justify-content:center;font-size:30px;}
 .card-tag{display:inline-block;background:#EBF2FA;color:#003B6E;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;padding:3px 12px;border-radius:20px;}
 .card-title{font-size:clamp(11px,3.6vw,17px);font-weight:700;color:#003B6E;letter-spacing:-0.3px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex-shrink:0;}
